@@ -5,6 +5,11 @@ MACHINE_PWD_URL=https://github.com/franela/docker-machine-driver-pwd/releases/do
 
 #export PWD_SESSION_ID=dc75aca5_node1
 
+die() {
+    echo "$0: die - $*" >&2
+    exit 1
+}
+
 downloadURL() {
     URL="$1"; shift
     FILE="$1"; shift
@@ -31,6 +36,8 @@ downloadURL() {
 downloadKubectl() {
     FILE=kubectl
 
+    URL=$KUBECTL_URL
+
     [ ! -f $FILE ] && {
         downloadURL $URL $FILE
         chmod +x kubectl
@@ -45,7 +52,6 @@ downloadMachineDriver() {
 
     [ ! -f $FILE ] && {
         downloadURL $URL $FILE
-        #chmod +x kubectl
         
         tar ztf $FILE || exit 1
         tar zxf $FILE || exit 1
@@ -68,6 +74,12 @@ createMachine() {
 
 downloadKubectl
 downloadMachineDriver
+
+[ -z "$PWD_SESSION_ID" ] && die "Set session id from browser url using session.rc,
+    . session.rc URL
+e.g.
+    . session.rc http://play-with-docker.com/p/dc75aca5-3b20-46b2-98a0-973d00ef8797#dc75aca5_node1
+"
 
 
 echo "Using session id <<$PWD_SESSION_ID>>"
