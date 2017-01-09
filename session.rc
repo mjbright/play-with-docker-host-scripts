@@ -1,0 +1,19 @@
+
+die() {
+    echo "$0: die - $*" >&2
+    return 1
+}
+
+[ -z "$1" ] && die "Missing URL argument"
+
+URL="$1"
+
+#echo URL=$URL
+PWD_SESSION_ID=${URL#http://play-with-docker.com/p/}
+
+#echo PWD_SESSION_ID=$PWD_SESSION_ID
+PWD_SESSION_ID=${PWD_SESSION_ID%\#*}
+
+echo export PWD_SESSION_ID=$PWD_SESSION_ID
+export PWD_SESSION_ID=$PWD_SESSION_ID
+
