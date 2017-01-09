@@ -3,7 +3,7 @@ KUBECTL_URL=https://storage.googleapis.com/kubernetes-release/release/v1.5.1/bin
 
 MACHINE_PWD_URL=https://github.com/franela/docker-machine-driver-pwd/releases/download/v0.0.2/docker-machine-driver-pwd.tar.gz
 
-export PWD_SESSION_ID=playkube
+#export PWD_SESSION_ID=dc75aca5_node1
 
 downloadURL() {
     URL="$1"; shift
@@ -59,7 +59,9 @@ downloadMachineDriver() {
 createMachine() {
     NODE="$1"; shift
 
-    docker-machine create -d pwd $NODE
+    CMD="docker-machine create -d pwd $NODE"
+    echo $CMD
+    $CMD
     eval $(docker-machine $NODE)
     docker ps
 }
@@ -68,6 +70,7 @@ downloadKubectl
 downloadMachineDriver
 
 
+echo "Using session id <<$PWD_SESSION_ID>>"
 createMachine node1
 createMachine node2
 
