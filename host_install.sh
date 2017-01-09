@@ -62,7 +62,7 @@ createMachine() {
     CMD="docker-machine create -d pwd $NODE"
     echo $CMD
     $CMD
-    eval $(docker-machine $NODE)
+    eval $(docker-machine env $NODE)
     docker ps
 }
 
