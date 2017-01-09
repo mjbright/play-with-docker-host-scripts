@@ -68,7 +68,7 @@ createMachine() {
     CMD="docker-machine create -d pwd $NODE"
     echo $CMD
     $CMD
-    eval $(docker-machine env $NODE)
+    eval $(docker-machine env --shell ash $NODE)
     docker ps
 }
 
@@ -83,7 +83,7 @@ e.g.
 
 
 echo "Using session id <<$PWD_SESSION_ID>>"
-createMachine node1
-createMachine node2
+createMachine master1
+createMachine worker1
 
 
