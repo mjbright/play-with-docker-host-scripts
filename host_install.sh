@@ -57,13 +57,17 @@ downloadMachineDriver() {
 
     [ ! -f $FILE ] && {
         downloadURL $URL $FILE
+
+	mkdir ~/tmp
+	cd    ~/tmp
         
-        tar ztf $FILE || exit 1
-        tar zxf $FILE || exit 1
+            tar ztf $FILE || exit 1
+            tar zxf $FILE || exit 1
 
-        # 386, not amd-64??!!
-        cp -a linux/386/docker-machine-driver-pwd  $MACHINE_DRIVER_PWD
+            # 386, not amd-64??!!
+            cp -a linux/386/docker-machine-driver-pwd  $MACHINE_DRIVER_PWD
 
+	cd -
     }
 }
 
